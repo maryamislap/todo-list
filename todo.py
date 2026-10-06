@@ -34,7 +34,14 @@ class TaskManager:
         else:
             print("رقم غلط!")
 
+    def complete_task(self, number):
+        if 0 < number <= len(self.tasks):
+            self.tasks[number - 1].mark_done()
+            print(f"تم إنجاز: {self.tasks[number - 1]}")
+        else:
+            print("رقم غلط!")
 
+        
 manager = TaskManager()
 
 while True:
@@ -43,6 +50,7 @@ while True:
     print("2. عرض المهام")
     print("3. حذف مهمة")
     print("4. خروج")
+    print("5. إنجاز مهمة")
 
     choice = input("اختر رقم: ")
 
@@ -53,9 +61,21 @@ while True:
         manager.show_tasks()
     elif choice == "3":
         manager.show_tasks()
-        number = int(input("رقم المهمة: "))
+        try:
+            number = int(input("رقم المهمة: "))
+        except ValueError:
+            print("لازم تكتبين رقم!")
+            continue
         manager.delete_task(number)
     elif choice == "4":
         break
+    elif choice == "5":
+        manager.show_tasks()
+        try:
+            number = int(input("رقم المهمة: "))
+        except ValueError:
+            print("لازم تكتبين رقم!")
+            continue
+        manager.complete_task(number)
     else:
         print("خيار غلط!")
